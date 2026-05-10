@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uma missiva de outrora</title>
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #dcd3c6; 
+            font-family: 'Georgia', serif;
+            color: #2c241b; 
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .carta {
+            background-color: #f8f4eb; 
+            padding: 40px; 
+            border: 1px solid #c8bba6;
+            box-shadow: 10px 15px 35px rgba(44, 36, 27, 0.2);
+            width: 100%;
+            max-width: 600px;
+            min-height: 500px;
+            position: relative;
+            line-height: 1.8;
+            font-size: 18px;
+            text-align: justify;
+            white-space: pre-wrap; /* Mantém as quebras de linha */
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-bottom: 1px dashed #c8bba6;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+
+        #cursor {
+            border-left: 2px solid #9d2e1c;
+            animation: piscar 0.7s infinite;
+            margin-left: 2px;
+        }
+
+        @keyframes piscar {
+            50% { opacity: 0; }
+        }
+
+        .assinatura {
+            margin-top: 40px;
+            text-align: right;
+            font-style: italic;
+            font-weight: bold;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="carta">
+        <h1 id="titulo"></h1>
+        <div id="texto"></div><span id="cursor"></span>
+    </div>
+
+    <script>
+        const tituloElemento = document.getElementById('titulo');
+        const textoElemento = document.getElementById('texto');
+        
+        const dataH1 = "08 de Maio";
+        const mensagem = `Minha cara,
+
+Se os anos passam com a pressa dos cocheiros e a lentidão dos nostálgicos, aqui estamos nós diante de mais uma data de sua folha de serviços à vida.
+
+O tempo — esse mestre que não aceita alunos repetentes — ensinou-me que as palavras mudam de peso conforme mudam as estações. Hoje, o que escrevo não traz a urgência do que "poderia ter sido", mas a placidez do que "foi".
+
+Olho para o nosso passado como quem contempla uma bela estátua que nunca chegou a ser terminada: falta-lhe um braço, talvez o coração, mas a beleza do mármore ainda se impõe. Você foi uma lição bem lida, um capítulo que quase se tornou romance, mas que o destino preferiu deixar em antologia.
+
+Desejo-lhe a felicidade possível — que é a única verdadeira. Que este seu aniversário seja celebrado com a dignidade de quem sabe que o passado é apenas um prólogo.
+
+Com a estima de sempre,
+Adriano Leite`;
+
+        let i = 0;
+        let j = 0;
+
+        function digitarTitulo() {
+            if (i < dataH1.length) {
+                tituloElemento.textContent += dataH1.charAt(i);
+                i++;
+                setTimeout(digitarTitulo, 100);
+            } else {
+                setTimeout(digitarTexto, 500);
+            }
+        }
+
+        function digitarTexto() {
+            if (j < mensagem.length) {
+                textoElemento.textContent += mensagem.charAt(j);
+                j++;
+                // Rola a tela para baixo automaticamente se o texto crescer
+                window.scrollTo(0, document.body.scrollHeight);
+                setTimeout(digitarTexto, 40); // Velocidade da digitação
+            } else {
+                document.getElementById('cursor').style.display = 'none';
+            }
+        }
+
+        // Inicia a animação
+        window.onload = digitarTitulo;
+    </script>
+
+</body>
+</html>
