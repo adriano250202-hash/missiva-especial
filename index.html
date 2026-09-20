@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Notas sobre olhares</title>
-    <!-- Font imports for serif vintage aesthetic -->
+    <title>No Seu Ritmo</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
@@ -30,7 +29,6 @@
             overflow-x: hidden;
         }
 
-        /* Ambient background texture & glow */
         body::before {
             content: "";
             position: fixed;
@@ -51,14 +49,14 @@
             width: 94%;
             max-width: 580px;
             background-color: #fdfbf7;
-            padding: 24px 20px;
+            padding: 26px 20px;
             border: 1px solid #c8bba6;
-            border-radius: 4px;
+            border-radius: 6px;
             box-shadow: 
                 0 10px 30px rgba(44, 36, 27, 0.15),
                 0 1px 4px rgba(0, 0, 0, 0.05),
                 inset 0 0 80px rgba(210, 190, 165, 0.2);
-            line-height: 1.8;
+            line-height: 1.85;
             font-size: 17px;
             text-align: justify;
             word-wrap: break-word;
@@ -66,7 +64,6 @@
             transition: all 0.3s ease;
         }
 
-        /* Adjustments for larger screens */
         @media (min-width: 600px) {
             .carta-container {
                 width: 92%;
@@ -120,7 +117,6 @@
             display: none !important;
         }
 
-        /* Action bar & button */
         .acoes {
             margin-top: 32px;
             display: flex;
@@ -195,16 +191,18 @@
         const acoesContainer = document.getElementById('acoesContainer');
         const cartaContainer = document.getElementById('carta');
         
-        const dataH1 = "Notas sobre olhares";
+        const dataH1 = "No Seu Ritmo";
         const mensagem = `Minha cara,
 
-Tenho notado a frequência com que nossos olhares se cruzam — e a maneira curiosa como os seus se demoram nos meus. 
+Fiz esta pequena página apenas para lhe tirar um sorriso e deixar registrado o quanto a sua presença é especial para mim.
 
-Se isso for apenas distração, peço desculpas pelo equívoco. Mas se houver aí alguma curiosidade mútua, seria uma pena deixar a conversa presa apenas à troca de olhares.
+Quero que saiba que não há pressa, nem qualquer tipo de cobrança. Eu admiro muito a sua essência, o seu jeito e o carinho que compartilhamos. Por isso mesmo, faço questão de respeitar o seu tempo, o seu espaço e os seus pensamentos.
 
-Que tal trocarmos as conjecturas por um café e uma boa conversa? Prometo que a companhia é tão interessante quanto os enigmas.
+A possibilidade de darmos um passo a mais me deixa muito feliz, mas a minha prioridade sempre será ver você bem, leve e confortável com tudo.
 
-Atenciosamente,
+Apenas leia isso como um gesto carinhoso de quem gosta muito de você e torce, sem pressa, por cada momento nosso.
+
+Com todo o carinho e respeito,
 Adriano Leite`;
 
         let indexTitulo = 0;
@@ -226,7 +224,7 @@ Adriano Leite`;
                 textoElemento.textContent += mensagem.charAt(indexTexto);
                 indexTexto++;
 
-                // Smooth scroll down if required on smaller screen sizes
+                // Auto scroll smoothly on mobile screens if text expands past view
                 const cartaRect = cartaContainer.getBoundingClientRect();
                 if (cartaRect.bottom > window.innerHeight - 30) {
                     window.scrollBy({
@@ -235,11 +233,11 @@ Adriano Leite`;
                     });
                 }
 
-                // Randomize slightly for realistic typewriter feel
+                // Natural, gentle typing cadence
                 const speed = Math.random() * 20 + 35;
                 timeoutId = setTimeout(digitarTexto, speed);
             } else {
-                // Typing complete: hide cursor smoothly & display restart button
+                // Reveal action button when typing finishes
                 setTimeout(() => {
                     cursorElemento.classList.add('cursor-hidden');
                     acoesContainer.classList.add('visivel');
@@ -262,7 +260,6 @@ Adriano Leite`;
             setTimeout(digitarTitulo, 300);
         }
 
-        // Initialize typing animation on load
         window.onload = () => {
             setTimeout(digitarTitulo, 400);
         };
