@@ -1,5 +1,475 @@
 <!DOCTYPE html>
+<html lang="pt-BR"><!DOCTYPE html>
 <html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Uma Pequena Surpresa</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle at center, #2c241b 0%, #15100c 100%);
+            font-family: 'Georgia', serif;
+            color: #2c241b;
+            padding: 15px;
+            overflow-x: hidden;
+            position: relative;
+            transition: background 1.2s ease;
+        }
+
+        /* Fundo quando ela aceita (Tom Rosado Acolhedor) */
+        body.theme-romantic {
+            background: radial-gradient(circle at center, #3d222b 0%, #1c0e13 100%);
+        }
+
+        /* Partículas flutuantes no fundo */
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background-color: rgba(232, 212, 175, 0.6);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float 6s infinite ease-in-out;
+            box-shadow: 0 0 8px rgba(232, 212, 175, 0.8);
+            z-index: 1;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) scale(0.8); opacity: 0; }
+            50% { opacity: 0.8; transform: translateY(-40px) scale(1.2); }
+            100% { transform: translateY(-80px) scale(0.8); opacity: 0; }
+        }
+
+        .envelope-container {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 5;
+        }
+
+        /* Flor Áster Interativa */
+        .aster-container {
+            position: absolute;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .aster-flower {
+            width: 120px;
+            height: 120px;
+            position: relative;
+            animation: pulseAster 2.5s infinite ease-in-out;
+            filter: drop-shadow(0 6px 15px rgba(0,0,0,0.6));
+        }
+
+        @keyframes pulseAster {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.08) rotate(5deg); }
+        }
+
+        .petals-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform-origin: center center;
+            transition: transform 1.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 1.5s ease;
+        }
+
+        .petals-outer { fill: #9b6bb0; }
+        .petals-inner { fill: #c48bdc; }
+        .flower-center { fill: #fbc02d; }
+
+        .aster-container.blooming .petals-outer {
+            transform: scale(2.8) rotate(90deg);
+            opacity: 0;
+        }
+
+        .aster-container.blooming .petals-inner {
+            transform: scale(3.5) rotate(-120deg);
+            opacity: 0;
+        }
+
+        .aster-container.blooming .flower-center {
+            transform: scale(4.5);
+            opacity: 0;
+        }
+
+        .aster-container.blooming .aster-text {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .aster-text {
+            margin-top: 15px;
+            color: #dcd3c6;
+            font-size: 13px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        /* Carta */
+        .carta {
+            background: #f8f4eb;
+            background-image: radial-gradient(#e2d9cc 1px, transparent 1px);
+            background-size: 20px 20px;
+            padding: 35px 25px;
+            border: 1px solid #c8bba6;
+            border-radius: 6px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(200, 187, 166, 0.3);
+            width: 100%;
+            min-height: 480px;
+            position: relative;
+            line-height: 1.85;
+            font-size: 16px;
+            text-align: justify;
+            white-space: pre-wrap;
+            opacity: 0;
+            transform: scale(0.2) rotate(-5deg);
+            transition: transform 1.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.4s ease, background-color 1.2s ease, border-color 1.2s ease;
+            pointer-events: none;
+        }
+
+        .carta.aberta {
+            opacity: 1;
+            transform: scale(1) rotate(0deg);
+            pointer-events: auto;
+        }
+
+        /* Carta com Tom Rosado ao Aceitar */
+        .carta.theme-romantic {
+            background-color: #fdf2f4;
+            border-color: #e5b3be;
+            box-shadow: 0 20px 50px rgba(61, 34, 43, 0.4), inset 0 0 60px rgba(229, 179, 190, 0.3);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-bottom: 1px dashed #c8bba6;
+            padding-bottom: 12px;
+            margin-bottom: 25px;
+            color: #5d4037;
+            transition: color 1.2s ease, border-color 1.2s ease;
+        }
+
+        .carta.theme-romantic h1 {
+            color: #7a3043;
+            border-bottom-color: #e5b3be;
+        }
+
+        #texto {
+            display: inline;
+        }
+
+        #cursor {
+            border-left: 2px solid #a83220;
+            animation: piscar 0.7s infinite;
+            margin-left: 2px;
+            display: inline-block;
+            height: 18px;
+            vertical-align: middle;
+        }
+
+        @keyframes piscar {
+            50% { opacity: 0; }
+        }
+
+        /* Cartão Final com a Pergunta */
+        .question-card {
+            display: none;
+            margin-top: 25px;
+            padding: 20px;
+            background: #efeafe;
+            border: 1px solid #c48bdc;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(155, 107, 176, 0.15);
+            animation: fadeInUp 0.8s ease forwards;
+            transition: background 1.2s ease, border-color 1.2s ease;
+        }
+
+        .question-card.theme-romantic {
+            background: #fbe6eb;
+            border-color: #e092a3;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .question-title {
+            font-size: 17px;
+            font-weight: bold;
+            color: #4a2c5a;
+            margin-bottom: 15px;
+            transition: color 1.2s ease;
+        }
+
+        .question-card.theme-romantic .question-title {
+            color: #7a3043;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn-option {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            font-family: 'Georgia', serif;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-yes {
+            background: #9b6bb0;
+            color: #fff;
+            box-shadow: 0 4px 10px rgba(155, 107, 176, 0.4);
+        }
+
+        .btn-yes:hover {
+            background: #835298;
+            transform: translateY(-2px);
+        }
+
+        .btn-no {
+            background: #e2d9cc;
+            color: #5d4037;
+        }
+
+        .btn-no:hover {
+            background: #d4c6b5;
+        }
+
+        .response-message {
+            margin-top: 15px;
+            font-size: 15px;
+            color: #4a2c5a;
+            font-style: italic;
+            display: none;
+            animation: fadeIn 0.8s ease forwards;
+            line-height: 1.6;
+        }
+
+        .question-card.theme-romantic .response-message {
+            color: #7a3043;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 480px) {
+            .carta {
+                padding: 25px 18px;
+                font-size: 15px;
+                line-height: 1.75;
+            }
+            h1 {
+                font-size: 17px;
+            }
+            .question-title {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="envelope-container" id="cardContainer">
+        <!-- Flor Áster Interativa -->
+        <div class="aster-container" id="asterBtn" onclick="desabrocharFlor()">
+            <svg class="aster-flower" viewBox="0 0 100 100">
+                <!-- Pétalas Externas -->
+                <g class="petals-layer petals-outer">
+                    <path d="M50 50 L47 5 A3 3 0 0 1 53 5 Z" transform="rotate(0 50 50)"/>
+                    <path d="M50 50 L47 5 A3 3 0 0 1 53 5 Z" transform="rotate(15 50 50)"/>
+                    <path d="M50 50 L47 5 A3 3 0 0 1 53 5 Z" transform="rotate(30 50 50)"/>
+                    <path d="M50 50 L47 5 A3 3 0 0 1 53 5 Z" transform="rotate(45 50 50)"/>
+                    <path d="M50 50 L47 5 A3 3 0 0 1 53 5 Z" transform="rotate(60 50 50)"/>
+                    <path d="M50 50 L47 5 A3 3 0 0 1 53 5 Z" transform="rotate(75 50 50)"/>
+                    <path d="M50 50 L47 5 A3 3 0 0 1 53 5 Z" transform="rotate(90 50 50)"/>
+                    <path d="M50 50 L47 5 A3 3 0 0 1 53 5 Z" transform="rotate(105 50 50)"/>
+                    <path d="M50 50 L47 5 A3 3 0 0 1 53 5 Z" transform="rotate(120 50 50)"/>
+                    <path d="M50 50 L47 5 A3 3 0 0 1 53 5 Z" transform="rotate(135 50 50)"/>
+                    <path d="M50 50 L47 5 A3 3 0 0 1 53 5 Z" transform="rotate(150 50 50)"/>
+                    <path d="M50 50 L47 5 A3 3 0 0 1 53 5 Z" transform="rotate(165 50 50)"/>
+                    <path d="M50 50 L47 5 A3 3 0 0 1 53 5 Z" transform="rotate(180 50 50)"/>
+                    <path d="M50 50 L47 5 A3 3 0 0 1 53 5 Z" transform="rotate(195 50 50)"/>
+                    <path d="M50 50 L47 5 A3 3 0 0 1 53 5 Z" transform="rotate(210 50 50)"/>
+                    <path d="M50 50 L47 5 A3 3 0 0 1 53 5 Z" transform="rotate(225 50 50)"/>
+                    <path d="M50 50 L47 5 A3 3 0 0 1 53 5 Z" transform="rotate(240 50 50)"/>
+                    <path d="M50 50 L47 5 A3 3 0 0 1 53 5 Z" transform="rotate(255 50 50)"/>
+                    <path d="M50 50 L47 5 A3 3 0 0 1 53 5 Z" transform="rotate(270 50 50)"/>
+                    <path d="M50 50 L47 5 A3 3 0 0 1 53 5 Z" transform="rotate(285 50 50)"/>
+                    <path d="M50 50 L47 5 A3 3 0 0 1 53 5 Z" transform="rotate(300 50 50)"/>
+                    <path d="M50 50 L47 5 A3 3 0 0 1 53 5 Z" transform="rotate(315 50 50)"/>
+                    <path d="M50 50 L47 5 A3 3 0 0 1 53 5 Z" transform="rotate(330 50 50)"/>
+                    <path d="M50 50 L47 5 A3 3 0 0 1 53 5 Z" transform="rotate(345 50 50)"/>
+                </g>
+                <!-- Pétalas Internas -->
+                <g class="petals-layer petals-inner">
+                    <path d="M50 50 L48 12 A2 2 0 0 1 52 12 Z" transform="rotate(7.5 50 50)"/>
+                    <path d="M50 50 L48 12 A2 2 0 0 1 52 12 Z" transform="rotate(37.5 50 50)"/>
+                    <path d="M50 50 L48 12 A2 2 0 0 1 52 12 Z" transform="rotate(67.5 50 50)"/>
+                    <path d="M50 50 L48 12 A2 2 0 0 1 52 12 Z" transform="rotate(97.5 50 50)"/>
+                    <path d="M50 50 L48 12 A2 2 0 0 1 52 12 Z" transform="rotate(127.5 50 50)"/>
+                    <path d="M50 50 L48 12 A2 2 0 0 1 52 12 Z" transform="rotate(157.5 50 50)"/>
+                    <path d="M50 50 L48 12 A2 2 0 0 1 52 12 Z" transform="rotate(187.5 50 50)"/>
+                    <path d="M50 50 L48 12 A2 2 0 0 1 52 12 Z" transform="rotate(217.5 50 50)"/>
+                    <path d="M50 50 L48 12 A2 2 0 0 1 52 12 Z" transform="rotate(247.5 50 50)"/>
+                    <path d="M50 50 L48 12 A2 2 0 0 1 52 12 Z" transform="rotate(277.5 50 50)"/>
+                    <path d="M50 50 L48 12 A2 2 0 0 1 52 12 Z" transform="rotate(307.5 50 50)"/>
+                    <path d="M50 50 L48 12 A2 2 0 0 1 52 12 Z" transform="rotate(337.5 50 50)"/>
+                </g>
+                <!-- Miolo -->
+                <circle class="petals-layer flower-center" cx="50" cy="50" r="12" />
+            </svg>
+            <div class="aster-text">Clique na Áster</div>
+        </div>
+
+        <!-- Conteúdo da Carta -->
+        <div class="carta" id="carta">
+            <h1 id="titulo"></h1>
+            <div id="texto"></div><span id="cursor" style="display: none;"></span>
+
+            <!-- Bloco de Pergunta (Revelado após digitação) -->
+            <div class="question-card" id="questionCard">
+                <div class="question-title">Quer tentar algo além da amizade?</div>
+                <div class="btn-group" id="btnGroup">
+                    <button class="btn-option btn-yes" onclick="responder('sim')">Sim, vamos tentar! ✨</button>
+                    <button class="btn-option btn-no" onclick="responder('nao')">Prefiro só a amizade 😊</button>
+                </div>
+                <div class="response-message" id="responseMessage"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const tituloElemento = document.getElementById('titulo');
+        const textoElemento = document.getElementById('texto');
+        const cursor = document.getElementById('cursor');
+        const asterBtn = document.getElementById('asterBtn');
+        const carta = document.getElementById('carta');
+        const questionCard = document.getElementById('questionCard');
+        const btnGroup = document.getElementById('btnGroup');
+        const responseMessage = document.getElementById('responseMessage');
+        
+        const dataH1 = "No Seu Tempo";
+        const mensagem = `Minha cara,
+
+Eu queria apenas te fazer uma surpresa simples, algo para te arrancar um sorriso enquanto você segue o seu próprio ritmo.
+
+Eu valorizo a leveza e a doçura que temos, e sei que você é uma pessoa que prefere o seu próprio tempo, o seu silêncio, o seu momento para pensar. Eu entendo e, acima de tudo, respeito profundamente a sua essência.
+
+Essa página é só uma pequena lembrança de que você não precisa ter pressa. O que importa é que você se sinta confortável, leve e, acima de tudo, você mesma.
+
+Fica tranquila, não há cobranças aqui. Apenas a minha admiração sincera pela pessoa incrível que você é.
+
+Com carinho,
+Seu Amigo`;
+
+        let i = 0;
+        let j = 0;
+
+        // Criar partículas de luz no fundo
+        for (let k = 0; k < 20; k++) {
+            let sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.style.left = Math.random() * 100 + 'vw';
+            sparkle.style.top = Math.random() * 100 + 'vh';
+            sparkle.style.animationDelay = (Math.random() * 5) + 's';
+            document.body.appendChild(sparkle);
+        }
+
+        function desabrocharFlor() {
+            asterBtn.classList.add('blooming');
+            
+            setTimeout(() => {
+                carta.classList.add('aberta');
+            }, 400);
+
+            setTimeout(() => {
+                asterBtn.style.display = 'none';
+                cursor.style.display = 'inline-block';
+                digitarTitulo();
+            }, 1200);
+        }
+
+        function digitarTitulo() {
+            if (i < dataH1.length) {
+                tituloElemento.textContent += dataH1.charAt(i);
+                i++;
+                setTimeout(digitarTitulo, 90);
+            } else {
+                setTimeout(digitarTexto, 400);
+            }
+        }
+
+        function digitarTexto() {
+            if (j < mensagem.length) {
+                textoElemento.textContent += mensagem.charAt(j);
+                j++;
+                window.scrollTo(0, document.body.scrollHeight);
+                setTimeout(digitarTexto, 35);
+            } else {
+                cursor.style.display = 'none';
+                setTimeout(() => {
+                    questionCard.style.display = 'block';
+                    window.scrollTo(0, document.body.scrollHeight);
+                }, 600);
+            }
+        }
+
+        function responder(opcao) {
+            btnGroup.style.display = 'none';
+            responseMessage.style.display = 'block';
+
+            if (opcao === 'sim') {
+                // Transição para o tom rosado
+                document.body.classList.add('theme-romantic');
+                carta.classList.add('theme-romantic');
+                questionCard.classList.add('theme-romantic');
+
+                responseMessage.innerHTML = "Prometo ir exatamente no seu tempo, sem pressa e fazendo cada momento valer a pena! 🤍✨";
+            } else {
+                responseMessage.innerHTML = "Sua amizade já é um presente incrível para mim. Fica super tranquila, conta comigo sempre! 😊";
+            }
+        }
+    </script>
+
+</body>
+</html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
