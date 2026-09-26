@@ -30,7 +30,7 @@
             background: radial-gradient(circle at center, #3d1c24 0%, #17070b 100%);
         }
 
-        /* Partículas sutis (Peiras de Ouro/Estrelas) */
+        /* Partículas sutis */
         .sparkle {
             position: absolute;
             width: 3px;
@@ -125,7 +125,7 @@
             font-style: italic;
         }
 
-        /* Carta Estilo Livro Antigo / Machado de Assis */
+        /* Carta Estilo Livro Antigo */
         .carta {
             display: none;
             background: #f6f0e3;
@@ -285,6 +285,23 @@
             color: #632e3b;
         }
 
+        /* Estilo da Imagem Revelada ao Aceitar */
+        .accepted-image-container {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+            animation: fadeIn 1.2s ease forwards;
+        }
+
+        .accepted-image {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 8px;
+            border: 2px solid #c97185;
+            box-shadow: 0 8px 20px rgba(99, 46, 59, 0.3);
+            object-fit: cover;
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -369,11 +386,24 @@
                     <button class="btn-option btn-no" onclick="responder('nao')">Ainda preciso de tempo 😊</button>
                 </div>
                 <div class="response-message" id="responseMessage"></div>
+                
+                <!-- Imagem Exibida Apenas ao Aceitar -->
+                <div class="accepted-image-container" id="acceptedImageContainer">
+                    <img id="acceptedImage" src="" alt="Momento Especial" class="accepted-image">
+                </div>
             </div>
         </div>
     </div>
 
     <script>
+        // =========================================================
+        // INSIRA O LINK OU NOME DA FOTO AQUI ABAIXO:
+        // =========================================================
+        const URL_DA_SUA_IMAGEM = "https://imgs.search.brave.com/nQxEHRUAaTHS_GZc98e9H6sZFgsmPXjlVo0V4cVfXFI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/bWFnbmlmaWMuY29t/L3ZldG9yZXMtcHJl/bWl1bS9hLWVuY2Fu/dGFkb3JhLXByaW5j/ZXNhLWUtby1wcmlu/Y2lwZS1waXhlbC1u/by1jZXUtY2hlaW8t/ZGUtZXN0cmVsYXNf/MTMyMjU1My04OTQy/Ny5qcGc_c2VtdD1h/aXNfaHlicmlkJnc9/NzQwJnE9ODA"; 
+        // Exemplo local: "foto.jpg"
+        // Exemplo link da web: "https://site.com/imagem.png"
+        // =========================================================
+
         const tituloElemento = document.getElementById('titulo');
         const textoElemento = document.getElementById('texto');
         const cursor = document.getElementById('cursor');
@@ -382,10 +412,11 @@
         const questionCard = document.getElementById('questionCard');
         const btnGroup = document.getElementById('btnGroup');
         const responseMessage = document.getElementById('responseMessage');
+        const acceptedImageContainer = document.getElementById('acceptedImageContainer');
+        const acceptedImage = document.getElementById('acceptedImage');
         
         const dataH1 = "Capítulo Único: A Estrela e o Tempo";
         
-        // Texto Machadiano Rebuscado e Pessoal
         const mensagem = `Minha cara Esther,
 
 Se o velho Machado de Assis aqui estivesse, diria que o tempo é um tecelão caprichoso e que os afetos sinceros desafiam a lógica dos homens. Você me alertara, com a doçura que lhe é própria, de que os caminhos poderiam ser árduos e que eu não precisaria assumir tal desafio. Ocorre que esqueceram de avisar ao meu coração que onde reside o seu sorriso, a dificuldade se dissolve em vontade.
@@ -402,7 +433,6 @@ Do seu eterno Príncipe.`;
         let i = 0;
         let j = 0;
 
-        // Criar pontos de iluminação no fundo
         for (let k = 0; k < 20; k++) {
             let sparkle = document.createElement('div');
             sparkle.className = 'sparkle';
@@ -442,7 +472,7 @@ Do seu eterno Príncipe.`;
                 textoElemento.textContent += mensagem.charAt(j);
                 j++;
                 window.scrollTo(0, document.body.scrollHeight);
-                setTimeout(digitarTexto, 70); // Velocidade de leitura confortável
+                setTimeout(digitarTexto, 70);
             } else {
                 cursor.style.display = 'none';
                 setTimeout(() => {
@@ -462,9 +492,19 @@ Do seu eterno Príncipe.`;
                 questionCard.classList.add('theme-romantic');
 
                 responseMessage.innerHTML = "A partir de hoje, escrevemos o nosso próprio livro. Prometo honrar cada capítulo ao seu lado, minha Princess! 👑🤍✨";
+                
+                // Exibe a Imagem
+                if (URL_DA_SUA_IMAGEM && URL_DA_SUA_IMAGEM !== "SUA_IMAGEM_AQUI.jpg") {
+                    acceptedImage.src = URL_DA_SUA_IMAGEM;
+                    acceptedImageContainer.style.display = "block";
+                }
             } else {
                 responseMessage.innerHTML = "O tempo é o nosso melhor aliado. Continuarei aqui, no seu ritmo e admirando a pessoa incrível que você é. 😊";
             }
+            
+            setTimeout(() => {
+                window.scrollTo(0, document.body.scrollHeight);
+            }, 100);
         }
     </script>
 
