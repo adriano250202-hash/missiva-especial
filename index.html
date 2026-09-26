@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html lang="pt-BR"><!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -20,13 +19,13 @@
             background: radial-gradient(circle at center, #2c241b 0%, #15100c 100%);
             font-family: 'Georgia', serif;
             color: #2c241b;
-            padding: 15px;
+            padding: 20px;
             overflow-x: hidden;
             position: relative;
             transition: background 1.2s ease;
         }
 
-        /* Fundo quando ela aceita (Tom Rosado Acolhedor) */
+        /* Fundo quando ela aceita */
         body.theme-romantic {
             background: radial-gradient(circle at center, #3d222b 0%, #1c0e13 100%);
         }
@@ -50,20 +49,18 @@
             100% { transform: translateY(-80px) scale(0.8); opacity: 0; }
         }
 
-        .envelope-container {
+        .main-wrapper {
             position: relative;
             width: 100%;
             max-width: 550px;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
             z-index: 5;
         }
 
-        /* Flor Áster Interativa */
+        /* Flor Áster Interativa (Centralizada) */
         .aster-container {
-            position: absolute;
-            z-index: 10;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -72,8 +69,8 @@
         }
 
         .aster-flower {
-            width: 120px;
-            height: 120px;
+            width: 130px;
+            height: 130px;
             position: relative;
             animation: pulseAster 2.5s infinite ease-in-out;
             filter: drop-shadow(0 6px 15px rgba(0,0,0,0.6));
@@ -99,17 +96,17 @@
         .flower-center { fill: #fbc02d; }
 
         .aster-container.blooming .petals-outer {
-            transform: scale(2.8) rotate(90deg);
+            transform: scale(3.5) rotate(90deg);
             opacity: 0;
         }
 
         .aster-container.blooming .petals-inner {
-            transform: scale(3.5) rotate(-120deg);
+            transform: scale(4) rotate(-120deg);
             opacity: 0;
         }
 
         .aster-container.blooming .flower-center {
-            transform: scale(4.5);
+            transform: scale(5);
             opacity: 0;
         }
 
@@ -119,21 +116,22 @@
         }
 
         .aster-text {
-            margin-top: 15px;
+            margin-top: 18px;
             color: #dcd3c6;
-            font-size: 13px;
-            letter-spacing: 1.5px;
+            font-size: 14px;
+            letter-spacing: 2px;
             text-transform: uppercase;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
             transition: opacity 0.5s ease, transform 0.5s ease;
         }
 
-        /* Carta */
+        /* Carta - Inicialmente ESCONDIDA para não aparecer fundo branco */
         .carta {
+            display: none;
             background: #f8f4eb;
             background-image: radial-gradient(#e2d9cc 1px, transparent 1px);
             background-size: 20px 20px;
-            padding: 35px 25px;
+            padding: 40px 30px;
             border: 1px solid #c8bba6;
             border-radius: 6px;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(200, 187, 166, 0.3);
@@ -141,19 +139,17 @@
             min-height: 480px;
             position: relative;
             line-height: 1.85;
-            font-size: 16px;
+            font-size: 16.5px;
             text-align: justify;
             white-space: pre-wrap;
             opacity: 0;
-            transform: scale(0.2) rotate(-5deg);
-            transition: transform 1.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.4s ease, background-color 1.2s ease, border-color 1.2s ease;
-            pointer-events: none;
+            transform: scale(0.8);
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 1s ease, background-color 1.2s ease, border-color 1.2s ease;
         }
 
-        .carta.aberta {
+        .carta.revelada {
             opacity: 1;
-            transform: scale(1) rotate(0deg);
-            pointer-events: auto;
+            transform: scale(1);
         }
 
         /* Carta com Tom Rosado ao Aceitar */
@@ -200,8 +196,8 @@
         /* Cartão Final com a Pergunta */
         .question-card {
             display: none;
-            margin-top: 25px;
-            padding: 20px;
+            margin-top: 30px;
+            padding: 22px;
             background: #efeafe;
             border: 1px solid #c48bdc;
             border-radius: 8px;
@@ -225,7 +221,7 @@
             font-size: 17px;
             font-weight: bold;
             color: #4a2c5a;
-            margin-bottom: 15px;
+            margin-bottom: 16px;
             transition: color 1.2s ease;
         }
 
@@ -241,7 +237,7 @@
         }
 
         .btn-option {
-            padding: 10px 20px;
+            padding: 10px 22px;
             border: none;
             border-radius: 20px;
             font-family: 'Georgia', serif;
@@ -291,12 +287,12 @@
 
         @media (max-width: 480px) {
             .carta {
-                padding: 25px 18px;
+                padding: 28px 20px;
                 font-size: 15px;
                 line-height: 1.75;
             }
             h1 {
-                font-size: 17px;
+                font-size: 18px;
             }
             .question-title {
                 font-size: 16px;
@@ -306,7 +302,7 @@
 </head>
 <body>
 
-    <div class="envelope-container" id="cardContainer">
+    <div class="main-wrapper">
         <!-- Flor Áster Interativa -->
         <div class="aster-container" id="asterBtn" onclick="desabrocharFlor()">
             <svg class="aster-flower" viewBox="0 0 100 100">
@@ -363,7 +359,7 @@
             <h1 id="titulo"></h1>
             <div id="texto"></div><span id="cursor" style="display: none;"></span>
 
-            <!-- Bloco de Pergunta (Revelado após digitação) -->
+            <!-- Bloco de Pergunta -->
             <div class="question-card" id="questionCard">
                 <div class="question-title">Quer tentar algo além da amizade?</div>
                 <div class="btn-group" id="btnGroup">
@@ -402,7 +398,7 @@ Seu Amigo`;
         let i = 0;
         let j = 0;
 
-        // Criar partículas de luz no fundo
+        // Partículas no fundo
         for (let k = 0; k < 20; k++) {
             let sparkle = document.createElement('div');
             sparkle.className = 'sparkle';
@@ -416,23 +412,25 @@ Seu Amigo`;
             asterBtn.classList.add('blooming');
             
             setTimeout(() => {
-                carta.classList.add('aberta');
-            }, 400);
-
-            setTimeout(() => {
                 asterBtn.style.display = 'none';
-                cursor.style.display = 'inline-block';
-                digitarTitulo();
-            }, 1200);
+                carta.style.display = 'block';
+                
+                // Força o navegador a reconhecer o display antes de aplicar a animação
+                setTimeout(() => {
+                    carta.classList.add('revelada');
+                    cursor.style.display = 'inline-block';
+                    digitarTitulo();
+                }, 50);
+            }, 800);
         }
 
         function digitarTitulo() {
             if (i < dataH1.length) {
                 tituloElemento.textContent += dataH1.charAt(i);
                 i++;
-                setTimeout(digitarTitulo, 90);
+                setTimeout(digitarTitulo, 120); // Título em velocidade suave
             } else {
-                setTimeout(digitarTexto, 400);
+                setTimeout(digitarTexto, 500);
             }
         }
 
@@ -441,13 +439,13 @@ Seu Amigo`;
                 textoElemento.textContent += mensagem.charAt(j);
                 j++;
                 window.scrollTo(0, document.body.scrollHeight);
-                setTimeout(digitarTexto, 35);
+                setTimeout(digitarTexto, 75); // VELOCIDADE REAJUSTADA (mais calmo para leitura)
             } else {
                 cursor.style.display = 'none';
                 setTimeout(() => {
                     questionCard.style.display = 'block';
                     window.scrollTo(0, document.body.scrollHeight);
-                }, 600);
+                }, 800);
             }
         }
 
@@ -456,7 +454,6 @@ Seu Amigo`;
             responseMessage.style.display = 'block';
 
             if (opcao === 'sim') {
-                // Transição para o tom rosado
                 document.body.classList.add('theme-romantic');
                 carta.classList.add('theme-romantic');
                 questionCard.classList.add('theme-romantic');
@@ -466,273 +463,6 @@ Seu Amigo`;
                 responseMessage.innerHTML = "Sua amizade já é um presente incrível para mim. Fica super tranquila, conta comigo sempre! 😊";
             }
         }
-    </script>
-
-</body>
-</html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>No Seu Ritmo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-    
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        html, body {
-            width: 100%;
-            min-height: 100vh;
-            background-color: #dcd3c6;
-            font-family: 'Playfair Display', 'Georgia', serif;
-            color: #2c241b;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 16px 12px;
-            overflow-x: hidden;
-        }
-
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at center, rgba(255, 255, 255, 0.25) 0%, rgba(0, 0, 0, 0.08) 100%),
-                repeating-linear-gradient(45deg, rgba(0,0,0,0.01) 0px, rgba(0,0,0,0.01) 2px, transparent 2px, transparent 4px);
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .carta-container {
-            position: relative;
-            z-index: 1;
-            width: 94%;
-            max-width: 580px;
-            background-color: #fdfbf7;
-            padding: 26px 20px;
-            border: 1px solid #c8bba6;
-            border-radius: 6px;
-            box-shadow: 
-                0 10px 30px rgba(44, 36, 27, 0.15),
-                0 1px 4px rgba(0, 0, 0, 0.05),
-                inset 0 0 80px rgba(210, 190, 165, 0.2);
-            line-height: 1.85;
-            font-size: 17px;
-            text-align: justify;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-            transition: all 0.3s ease;
-        }
-
-        @media (min-width: 600px) {
-            .carta-container {
-                width: 92%;
-                padding: 40px 35px;
-                font-size: 18.5px;
-            }
-        }
-
-        h1 {
-            font-family: 'Cinzel', 'Georgia', serif;
-            text-align: center;
-            font-size: 20px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #4a3b2c;
-            border-bottom: 1px dashed #c8bba6;
-            padding-bottom: 14px;
-            margin-bottom: 24px;
-            min-height: 38px;
-        }
-
-        @media (min-width: 600px) {
-            h1 {
-                font-size: 23px;
-                letter-spacing: 3px;
-            }
-        }
-
-        .texto-conteudo {
-            white-space: pre-wrap;
-            display: inline;
-        }
-
-        #cursor {
-            display: inline-block;
-            width: 2px;
-            height: 1.1em;
-            background-color: #9d2e1c;
-            margin-left: 3px;
-            vertical-align: middle;
-            animation: piscar 0.7s infinite;
-        }
-
-        @keyframes piscar {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-
-        .cursor-hidden {
-            display: none !important;
-        }
-
-        .acoes {
-            margin-top: 32px;
-            display: flex;
-            justify-content: center;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-            pointer-events: none;
-        }
-
-        .acoes.visivel {
-            opacity: 1;
-            transform: translateY(0);
-            pointer-events: auto;
-        }
-
-        .btn-reiniciar {
-            font-family: 'Cinzel', serif;
-            background: transparent;
-            color: #6a5340;
-            border: 1px solid #a89a85;
-            padding: 10px 22px;
-            font-size: 13px;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.04);
-        }
-
-        .btn-reiniciar:hover, .btn-reiniciar:active {
-            background-color: #f2ebe0;
-            color: #2c241b;
-            border-color: #8c7b66;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
-        }
-
-        .stamp-mark {
-            position: absolute;
-            bottom: 12px;
-            right: 16px;
-            font-size: 11px;
-            color: #b5a794;
-            font-family: sans-serif;
-            letter-spacing: 1px;
-            pointer-events: none;
-            opacity: 0.5;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="carta-container" id="carta">
-        <h1 id="titulo"></h1>
-        <div id="texto" class="texto-conteudo"></div><span id="cursor"></span>
-
-        <div class="acoes" id="acoesContainer">
-            <button class="btn-reiniciar" id="btnReiniciar" onclick="reiniciarAnimacao()">
-                <span style="margin-right: 6px;">↺</span> Ler Novamente
-            </button>
-        </div>
-
-        <div class="stamp-mark">❖ M.L.</div>
-    </div>
-
-    <script>
-        const tituloElemento = document.getElementById('titulo');
-        const textoElemento = document.getElementById('texto');
-        const cursorElemento = document.getElementById('cursor');
-        const acoesContainer = document.getElementById('acoesContainer');
-        const cartaContainer = document.getElementById('carta');
-        
-        const dataH1 = "No Seu Ritmo";
-        const mensagem = `Minha cara,
-
-Fiz esta pequena página apenas para lhe tirar um sorriso e deixar registrado o quanto a sua presença é especial para mim.
-
-Quero que saiba que não há pressa, nem qualquer tipo de cobrança. Eu admiro muito a sua essência, o seu jeito e o carinho que compartilhamos. Por isso mesmo, faço questão de respeitar o seu tempo, o seu espaço e os seus pensamentos.
-
-A possibilidade de darmos um passo a mais me deixa muito feliz, mas a minha prioridade sempre será ver você bem, leve e confortável com tudo.
-
-Apenas leia isso como um gesto carinhoso de quem gosta muito de você e torce, sem pressa, por cada momento nosso.
-
-Com todo o carinho e respeito,
-Adriano Leite`;
-
-        let indexTitulo = 0;
-        let indexTexto = 0;
-        let timeoutId = null;
-
-        function digitarTitulo() {
-            if (indexTitulo < dataH1.length) {
-                tituloElemento.textContent += dataH1.charAt(indexTitulo);
-                indexTitulo++;
-                timeoutId = setTimeout(digitarTitulo, 90);
-            } else {
-                timeoutId = setTimeout(digitarTexto, 450);
-            }
-        }
-
-        function digitarTexto() {
-            if (indexTexto < mensagem.length) {
-                textoElemento.textContent += mensagem.charAt(indexTexto);
-                indexTexto++;
-
-                // Auto scroll smoothly on mobile screens if text expands past view
-                const cartaRect = cartaContainer.getBoundingClientRect();
-                if (cartaRect.bottom > window.innerHeight - 30) {
-                    window.scrollBy({
-                        top: 25,
-                        behavior: 'smooth'
-                    });
-                }
-
-                // Natural, gentle typing cadence
-                const speed = Math.random() * 20 + 35;
-                timeoutId = setTimeout(digitarTexto, speed);
-            } else {
-                // Reveal action button when typing finishes
-                setTimeout(() => {
-                    cursorElemento.classList.add('cursor-hidden');
-                    acoesContainer.classList.add('visivel');
-                }, 600);
-            }
-        }
-
-        function reiniciarAnimacao() {
-            clearTimeout(timeoutId);
-            acoesContainer.classList.remove('visivel');
-            cursorElemento.classList.remove('cursor-hidden');
-            
-            tituloElemento.textContent = '';
-            textoElemento.textContent = '';
-            indexTitulo = 0;
-            indexTexto = 0;
-
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-
-            setTimeout(digitarTitulo, 300);
-        }
-
-        window.onload = () => {
-            setTimeout(digitarTitulo, 400);
-        };
     </script>
 
 </body>
