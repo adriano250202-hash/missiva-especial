@@ -25,12 +25,10 @@
             transition: background 1.5s ease;
         }
 
-        /* Fundo Rosado/Vinho Elegante ao Aceitar */
         body.theme-romantic {
             background: radial-gradient(circle at center, #3d1c24 0%, #17070b 100%);
         }
 
-        /* Partículas sutis */
         .sparkle {
             position: absolute;
             width: 3px;
@@ -59,7 +57,6 @@
             z-index: 5;
         }
 
-        /* Áster Interativa (Início) */
         .aster-container {
             display: flex;
             flex-direction: column;
@@ -125,22 +122,21 @@
             font-style: italic;
         }
 
-        /* Carta Estilo Livro Antigo */
         .carta {
             display: none;
             background: #f6f0e3;
             background-image: radial-gradient(#d8ccb8 1px, transparent 1px);
             background-size: 24px 24px;
-            padding: 45px 35px;
+            padding: 35px 30px;
             border: 2px solid #3c2e28;
             outline: 1px solid #b39b7d;
             outline-offset: -7px;
             border-radius: 4px;
             box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), inset 0 0 70px rgba(185, 160, 125, 0.35);
             width: 100%;
-            min-height: 520px;
+            height: auto; /* Ajuste automático de altura */
             position: relative;
-            line-height: 1.9;
+            line-height: 1.8;
             font-size: 16.5px;
             text-align: justify;
             white-space: pre-wrap;
@@ -154,7 +150,6 @@
             transform: scale(1);
         }
 
-        /* Carta ao Aceitar */
         .carta.theme-romantic {
             background-color: #faf0f2;
             border-color: #632e3b;
@@ -197,11 +192,10 @@
             50% { opacity: 0; }
         }
 
-        /* Cartão Final de Pedido */
         .question-card {
             display: none;
-            margin-top: 35px;
-            padding: 25px 20px;
+            margin-top: 25px;
+            padding: 20px 15px;
             background: #ede6f5;
             border: 1px dashed #8e58a0;
             border-radius: 6px;
@@ -225,7 +219,7 @@
             font-size: 18px;
             font-style: italic;
             color: #3b2348;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             transition: color 1.2s ease;
         }
 
@@ -272,30 +266,30 @@
         }
 
         .response-message {
-            margin-top: 15px;
+            margin-bottom: 15px;
             font-size: 16px;
             color: #3b2348;
             font-style: italic;
             display: none;
             animation: fadeIn 0.8s ease forwards;
-            line-height: 1.7;
+            line-height: 1.6;
         }
 
         .question-card.theme-romantic .response-message {
             color: #632e3b;
         }
 
-        /* Estilo da Imagem Revelada ao Aceitar */
+        /* Container da Imagem Ajustado */
         .accepted-image-container {
             display: none;
-            margin-top: 20px;
+            margin-top: 10px;
             text-align: center;
             animation: fadeIn 1.2s ease forwards;
         }
 
         .accepted-image {
             max-width: 100%;
-            max-height: 300px;
+            max-height: 280px;
             border-radius: 8px;
             border: 2px solid #c97185;
             box-shadow: 0 8px 20px rgba(99, 46, 59, 0.3);
@@ -309,9 +303,9 @@
 
         @media (max-width: 480px) {
             .carta {
-                padding: 30px 22px;
+                padding: 25px 18px;
                 font-size: 15px;
-                line-height: 1.8;
+                line-height: 1.7;
             }
             h1 {
                 font-size: 16px;
@@ -325,7 +319,6 @@
 <body>
 
     <div class="main-wrapper">
-        <!-- Flor Áster Interativa -->
         <div class="aster-container" id="asterBtn" onclick="desabrocharFlor()">
             <svg class="aster-flower" viewBox="0 0 100 100">
                 <g class="petals-layer petals-outer">
@@ -373,21 +366,18 @@
             <div class="aster-text">Tocar na Áster</div>
         </div>
 
-        <!-- Conteúdo da Carta -->
         <div class="carta" id="carta">
             <h1 id="titulo"></h1>
             <div id="texto"></div><span id="cursor" style="display: none;"></span>
 
-            <!-- Bloco de Pedido de Namoro -->
             <div class="question-card" id="questionCard">
-                <div class="question-title">Minha Princesa, aceita ser minha namorada e escrever essa história ao meu lado?</div>
+                <div class="question-title" id="questionTitle">Minha Princesa, aceita ser minha namorada e escrever essa história ao meu lado?</div>
                 <div class="btn-group" id="btnGroup">
                     <button class="btn-option btn-yes" onclick="responder('sim')">Sim, meu Príncipe! 👑✨</button>
                     <button class="btn-option btn-no" onclick="responder('nao')">Ainda preciso de tempo 😊</button>
                 </div>
                 <div class="response-message" id="responseMessage"></div>
                 
-                <!-- Imagem Exibida Apenas ao Aceitar -->
                 <div class="accepted-image-container" id="acceptedImageContainer">
                     <img id="acceptedImage" src="" alt="Momento Especial" class="accepted-image">
                 </div>
@@ -396,13 +386,7 @@
     </div>
 
     <script>
-        // =========================================================
-        // INSIRA O LINK OU NOME DA FOTO AQUI ABAIXO:
-        // =========================================================
         const URL_DA_SUA_IMAGEM = "https://imgs.search.brave.com/nQxEHRUAaTHS_GZc98e9H6sZFgsmPXjlVo0V4cVfXFI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/bWFnbmlmaWMuY29t/L3ZldG9yZXMtcHJl/bWl1bS9hLWVuY2Fu/dGFkb3JhLXByaW5j/ZXNhLWUtby1wcmlu/Y2lwZS1waXhlbC1u/by1jZXUtY2hlaW8t/ZGUtZXN0cmVsYXNf/MTMyMjU1My04OTQy/Ny5qcGc_c2VtdD1h/aXNfaHlicmlkJnc9/NzQwJnE9ODA"; 
-        // Exemplo local: "foto.jpg"
-        // Exemplo link da web: "https://site.com/imagem.png"
-        // =========================================================
 
         const tituloElemento = document.getElementById('titulo');
         const textoElemento = document.getElementById('texto');
@@ -410,6 +394,7 @@
         const asterBtn = document.getElementById('asterBtn');
         const carta = document.getElementById('carta');
         const questionCard = document.getElementById('questionCard');
+        const questionTitle = document.getElementById('questionTitle');
         const btnGroup = document.getElementById('btnGroup');
         const responseMessage = document.getElementById('responseMessage');
         const acceptedImageContainer = document.getElementById('acceptedImageContainer');
@@ -484,6 +469,7 @@ Do seu eterno Príncipe.`;
 
         function responder(opcao) {
             btnGroup.style.display = 'none';
+            questionTitle.style.display = 'none';
             responseMessage.style.display = 'block';
 
             if (opcao === 'sim') {
@@ -493,7 +479,6 @@ Do seu eterno Príncipe.`;
 
                 responseMessage.innerHTML = "A partir de hoje, escrevemos o nosso próprio livro. Prometo honrar cada capítulo ao seu lado, minha Princess! 👑🤍✨";
                 
-                // Exibe a Imagem
                 if (URL_DA_SUA_IMAGEM && URL_DA_SUA_IMAGEM !== "SUA_IMAGEM_AQUI.jpg") {
                     acceptedImage.src = URL_DA_SUA_IMAGEM;
                     acceptedImageContainer.style.display = "block";
